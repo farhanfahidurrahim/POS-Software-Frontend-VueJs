@@ -1,21 +1,21 @@
 <template>
-  <!-- <div>
+  <div>
     <a href="https://vitejs.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
     <a href="https://vuejs.org/" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
-  </div> -->
-  <!-- <HelloWorld msg="Farhan + Vue" /> -->
+  </div>
+  <HelloWorld msg="Vite + Vue" />
   <Home />
   <Brand />
 </template>
 
 <script setup>
-import HelloWorld from "./components/HelloWorld.vue";
-import Home from "./components/Home.vue"
-import Brand from "./components/Brand.vue"
+// import HelloWorld from "./pages/HelloWorld.vue";
+import Home from "./views/Home.vue";
+import Brand from "./views/Brand.vue";
 </script>
 
 <style scoped>
