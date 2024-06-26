@@ -1,22 +1,26 @@
-<template>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
-  <Home />
-  <Brand />
-</template>
 
 <script setup>
-// import HelloWorld from "./pages/HelloWorld.vue";
-import Home from "./views/Home.vue";
-import Brand from "./views/Brand.vue";
+import { provide, shallowRef } from 'vue';
+import layouts from './layouts/index';
+import router from './router'
+const layout = shallowRef('main');
+
+router.afterEach((to) => {
+  layout.value = layouts[to.meta.layout] || 'main';
+})
+
+console.log((layout));
+
+provide('app:layout', layout)
+
 </script>
+
+<template>
+  <component :is="layout">
+    <router-view />
+
+  </component>
+</template>
 
 <style scoped>
 .logo {

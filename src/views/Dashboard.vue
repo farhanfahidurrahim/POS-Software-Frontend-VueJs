@@ -1,5 +1,5 @@
 <template>
-  <h2>Welcome to Vue...</h2>
+  <h2>Welcome to view - Dashboard...</h2>
 </template>
 
 <script></script>

@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>Brands Page</h1>
-    <div v-if="brands.length">
+    <h1>User Page</h1>
+    {{ brands }}
+    <!-- <div v-if="brands.length">
       <div v-for="brand in brands" :key="brand.id">
         <h2>{{ brand.name }}</h2>
         <p>{{ brand.description }}</p>
@@ -10,7 +11,7 @@
         <p>Description: {{ brand.category.description }}</p>
         <p>Status: {{ brand.category.status }}</p>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -18,7 +19,6 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const brands = ref([]);
 
 const fetchBrands = async () => {
   try {
@@ -26,11 +26,15 @@ const fetchBrands = async () => {
       `${import.meta.env.VITE_BASE_API_URL}/api/v1/brands`
     );
     console.log("response=>", response);
-    brands.value = response.data.data;
+    brands.value = response.data;
   } catch (error) {
     console.log("Error fetching=>", error);
+    return []
   }
 };
 
-onMounted(fetchBrands);
+// const brands = ref(await fetchBrands());
+
+
+// onMounted(fetchBrands);
 </script>
