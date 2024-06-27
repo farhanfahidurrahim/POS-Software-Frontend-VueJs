@@ -55,6 +55,8 @@ import axios from "../http.js";
 
 const brands = ref([]);
 
+// ======>>> Index
+
 const fetchBrands = async () => {
   try {
     const response = await axios.get("/api/v1/brands");
@@ -66,6 +68,8 @@ const fetchBrands = async () => {
   }
 };
 
+// ======>>> Delete
+
 const deleteBrand = async (id) => {
   if (confirm("Are you sure you want to delete this brand?")) {
     try {
@@ -73,8 +77,8 @@ const deleteBrand = async (id) => {
       brands.value = brands.value.filter((brand) => brand.id !== id);
       toast.success("Brand deleted successfully!");
     } catch (error) {
-      console.error("Error deleting brand:", error);
-      toast.error("Failed to delete brand.");
+      console.error("Error deleting:", error);
+      toast.error("Failed to delete.");
     }
   }
 };
