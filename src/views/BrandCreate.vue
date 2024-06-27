@@ -14,19 +14,25 @@
   <div>
     <form @submit.prevent="createBrand">
       <div class="form-group mb-3">
-        <label for="name" class="form-label">Name:</label>
+        <label for="name" class="form-label">Name: <span style="color:red">*</span> </label>
         <input
           type="text"
           id="name"
           v-model="newBrand.name"
           class="form-control"
         />
+        <div v-if="errors.name" class="text-danger">
+          {{ errors.name[0] }}
+        </div>
       </div>
       <div class="form-group mb-3">
-        <label for="category" class="form-label">Category:</label>
+        <label for="category" class="form-label">Category: <span style="color: red;">*</span></label>
         <select id="category" v-model="newBrand.category_id" class="form-control">
           <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
         </select>
+        <div v-if="errors.category_id" class="text-danger">
+          {{ errors.category_id[0] }}
+        </div>
       </div>
       <div class="form-group mb-3">
         <label for="description" class="form-label">Description:</label>
@@ -45,8 +51,10 @@
 import { ref, onMounted } from "vue";
 import axios from "../http.js";
 import { useRouter } from "vue-router";
+import { useToast } from 'vue-toastification';
 
 const router = useRouter();
+const toast = useToast();
 
 const newBrand = ref({
   name: "",
@@ -54,11 +62,12 @@ const newBrand = ref({
   description: "",
 });
 
-const categories = ref([]); // To store categories fetched from the API
+const categories = ref([]);
+const errors = ref({});
 
 const fetchCategories = async () => {
   try {
-    const response = await axios.get("/api/v1/categories"); // Adjust the API endpoint as per your actual route
+    const response = await axios.get("/api/v1/categories");
     categories.value = response.data.data;
   } catch (error) {
     console.error("Error fetching categories:", error);
@@ -72,11 +81,15 @@ const createBrand = async () => {
       category_id: newBrand.value.category_id,
       description: newBrand.value.description,
     });
-    console.log("Brand added:", response.data); // Log response data
-    // Optionally, you can navigate back to the brand list after adding
+    console.log("Response:", response.data);
+    toast.success('Brand Created Successfully!');
     router.push({ name: "BrandList" });
   } catch (error) {
-    console.error("Error adding brand:", error);
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    } else {
+      console.error("Error:", error);
+    }
   }
 };
 

@@ -52,7 +52,9 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "../http.js";
+import { useToast } from 'vue-toastification';
 
+const toast = useToast();
 const brands = ref([]);
 
 // ======>>> Index
@@ -75,7 +77,7 @@ const deleteBrand = async (id) => {
     try {
       await axios.delete(`/api/v1/brands/${id}`);
       brands.value = brands.value.filter((brand) => brand.id !== id);
-      toast.success("Brand deleted successfully!");
+      toast.success("Brand Deleted Successfully!");
     } catch (error) {
       console.error("Error deleting:", error);
       toast.error("Failed to delete.");
