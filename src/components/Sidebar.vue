@@ -4,6 +4,7 @@
     <ul class="sidebar-menu">
       <li><router-link to="/dashboard">Dashboard</router-link></li>
       <li><router-link to="/users">Users</router-link></li>
+      <li><router-link to="/brands/list">Brands</router-link></li>
       <!-- Add more menu items as needed -->
     </ul>
   </aside>

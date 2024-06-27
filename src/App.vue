@@ -1,24 +1,21 @@
-
 <script setup>
-import { provide, shallowRef } from 'vue';
-import layouts from './layouts/index';
-import router from './router'
-const layout = shallowRef('main');
+import { provide, shallowRef } from "vue";
+import layouts from "./layouts/index";
+import router from "./router";
+const layout = shallowRef("main");
 
 router.afterEach((to) => {
-  layout.value = layouts[to.meta.layout] || 'main';
-})
+  layout.value = layouts[to.meta.layout] || "main";
+});
 
-console.log((layout));
+console.log(layout);
 
-provide('app:layout', layout)
-
+provide("app:layout", layout);
 </script>
 
 <template>
   <component :is="layout">
     <router-view />
-
   </component>
 </template>
 

@@ -1,42 +1,51 @@
-import { createWebHistory, createRouter } from 'vue-router';
-// import Layout from './components/Layout.vue';
-import DashboardLayout from './layouts/Dashboard.vue';
-// import Dashboard from './views/Dashboard.vue';
-// import User from './views/User.vue';
+import { createWebHistory, createRouter } from "vue-router";
+import BrandEdit from "./views/BrandEdit.vue";
+import BrandCreate from "./views/BrandCreate.vue";
 
-const routes = [{
-        path: '/',
-        meta: {
-            layout: 'DashboardLayout'
-        },
-        component: () =>
-            import ('./views/Dashboard.vue'),
+const routes = [
+  {
+    path: "/",
+    component: () => import("./views/Dashboard.vue"),
+  },
+  {
+    path: "/dashboard",
+    component: () => import("./views/Dashboard.vue"),
+  },
+  {
+    path: "/users",
+    component: () => import("./views/User.vue"),
+  },
+  {
+    path: "/brands/create",
+    name: "BrandCreate",
+    component: BrandCreate,
+  },
+  {
+    path: "/brands/list",
+    name: "BrandList",
+    component: () => import("./views/BrandList.vue"),
+  },
+  {
+    path: "/brands/:id/edit",
+    name: "BrandEdit",
+    component: BrandEdit,
+    props: true,
+  },
+];
 
-    },
-    {
-        path: '/dashboard',
-        meta: {
-            layout: 'DashboardLayout'
-        },
-        component: () =>
-            import ('./views/Dashboard.vue'),
-    },
-    {
-        path: '/users',
-        component: () =>
-            import ('./views/User.vue'),
-        meta: {
-            layout: 'DashboardLayout'
-        }
-    }
-]
-
-const BASE_URL =
-    import.meta.env.BASE_URL || '/';
+const BASE_URL = import.meta.env.BASE_URL || "/";
 
 const router = createRouter({
-    history: createWebHistory(BASE_URL),
-    routes,
+  history: createWebHistory(BASE_URL),
+  routes,
+});
+
+// Global navigation guard to set default layout
+router.beforeEach((to, from, next) => {
+  if (!to.meta.layout) {
+    to.meta.layout = "DashboardLayout";
+  }
+  next();
 });
 
 export default router;
