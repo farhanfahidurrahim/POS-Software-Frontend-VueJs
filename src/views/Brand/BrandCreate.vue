@@ -49,7 +49,7 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "../http.js";
+import axios from "../../http.js";
 import { useRouter } from "vue-router";
 import { useToast } from 'vue-toastification';
 
