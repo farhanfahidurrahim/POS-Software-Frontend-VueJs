@@ -63,7 +63,7 @@
                 :to="{ name: 'BrandEdit', params: { id: product.id } }"
                 class="btn btn-sm btn-info mx-2"
               >
-                Edit
+                View
               </router-link>
               <button
                 @click="deleteBrand(product.id)"
@@ -138,7 +138,7 @@
   import { useToast } from "vue-toastification";
   
   const toast = useToast();
-  const products = ref([]);
+  const fetchProducts = ref([]);
   const searchQuery = ref("");
   const loading = ref(false);
   const paginationLinks = ref({
@@ -152,7 +152,7 @@
     try {
       loading.value = true;
       const response = await axios.get(url);
-      products.value = response.data.data;
+      fetchProducts.value = response.data.data;
       console.log("products", response);
       updatePaginationLinks(response.data.links, response.data.meta);
     } catch (error) {
@@ -191,15 +191,15 @@
     }
   };
   
-  // Computed property to filter list based on search query
-//   const categories = computed(() => {
-//     return fetchCategories.value.filter((category) => {
-//       // Convert both .name and searchQuery to lowercase for case-insensitive search
-//       return category.name
-//         .toLowerCase()
-//         .includes(searchQuery.value.toLowerCase());
-//     });
-//   });
+//   Computed property to filter list based on search query
+  const products = computed(() => {
+    return fetchProducts.value.filter((product) => {
+      // Convert both .name and searchQuery to lowercase for case-insensitive search
+      return product.name
+        .toLowerCase()
+        .includes(searchQuery.value.toLowerCase());
+    });
+  });
   
   // Fetch initial on component mount
   onMounted(() => {
