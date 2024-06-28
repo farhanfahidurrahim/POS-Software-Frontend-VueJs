@@ -1,44 +1,54 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "./views/Auth/Login.vue";
-import BrandEdit from "./views/Brand/BrandEdit.vue";
+import Dashboard from "./views/Dashboard.vue";
+import User from "./views/User.vue";
+import BrandList from "./views/Brand/BrandList.vue";
 import BrandCreate from "./views/Brand/BrandCreate.vue";
+import BrandEdit from "./views/Brand/BrandEdit.vue";
 
 const routes = [{
         path: "/",
-        component: () =>
-            import ("./views/Dashboard.vue"),
+        name: "Home",
+        component: Dashboard,
+        meta: { requiresAuth: true }, // Example: Requires authentication
     },
     {
         path: "/login",
         name: "Login",
         component: Login,
+        meta: { layout: null }, // No layout for the login page
     },
     {
         path: "/dashboard",
-        component: () =>
-            import ("./views/Dashboard.vue"),
+        name: "Dashboard",
+        component: Dashboard,
+        meta: { requiresAuth: true },
     },
     {
         path: "/users",
-        component: () =>
-            import ("./views/User.vue"),
+        name: "User",
+        component: User,
+        meta: { requiresAuth: true },
     },
     {
         path: "/brands/create",
         name: "BrandCreate",
         component: BrandCreate,
+        meta: { requiresAuth: true },
     },
     {
         path: "/brands/list",
         name: "BrandList",
-        component: () =>
-            import ("./views/Brand/BrandList.vue"),
+        component: BrandList,
+        meta: { requiresAuth: true },
+        meta: { requiresAuth: true },
     },
     {
         path: "/brands/:id/edit",
         name: "BrandEdit",
         component: BrandEdit,
         props: true,
+        meta: { requiresAuth: true },
     },
 ];
 
@@ -52,10 +62,18 @@ const router = createRouter({
 
 // Global navigation guard to set default layout
 router.beforeEach((to, from, next) => {
-    if (!to.meta.layout) {
-        to.meta.layout = "DashboardLayout";
+    const isAuthenticated = localStorage.getItem("authToken") !== null;
+
+    // If the route requires authentication and user is not authenticated, redirect to login
+    if (to.meta.requiresAuth && !isAuthenticated) {
+        next({ name: "Login" });
+    } else {
+        // If the route does not have a meta layout defined, set it to 'DashboardLayout'
+        if (to.meta.layout === undefined) {
+            to.meta.layout = "DashboardLayout";
+        }
+        next();
     }
-    next();
 });
 
 export default router;
