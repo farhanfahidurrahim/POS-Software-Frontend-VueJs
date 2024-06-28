@@ -21,10 +21,7 @@
         placeholder="Search by name..."
       />
     </div>
-    <!-- No search data message -->
-    <div v-if="filteredBrands.length === 0 && !loading" class="alert alert-info">
-      No search data found.
-    </div>
+    
     <table class="table">
       <thead>
         <tr>
@@ -37,7 +34,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(brand, index) in brands" :key="brand.id">
+        <tr v-for="(brand, index) in filteredBrands" :key="brand.id">
           <th scope="row">{{ index + 1 }}</th>
           <td>{{ brand.name }}</td>
           <td>{{ brand.description }}</td>
@@ -60,6 +57,11 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- No search data message -->
+    <div v-if="filteredBrands.length === 0 && !loading" class="alert alert-danger">
+      No search data found.
+    </div>
     
     <!-- Pagination Links -->
     <nav class="d-flex justify-content-end" v-if="paginationLinks && paginationLinks.links.length > 0">
@@ -148,8 +150,8 @@ const updatePaginationLinks = (links, meta) => {
   }));
   paginationLinks.value = {
     links: formattedLinks,
-    prev: meta.prev,
-    next: meta.next
+    prev: links.prev,
+    next: links.next
   };
 };
 
@@ -183,7 +185,6 @@ onMounted(() => {
 
 <style scoped>
 .pagination {
-  justify-content: center;
   margin-top: 1rem;
 }
 </style>
