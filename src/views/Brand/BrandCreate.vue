@@ -6,7 +6,7 @@
       <h2 class="m-0">Brand Create</h2>
     </div>
     <div>
-      <router-link :to="{ name: 'BrandList' }" class="btn btn-sm btn-success"
+      <router-link :to="{ name: 'BrandIndex' }" class="btn btn-sm btn-success"
         >Back List</router-link
       >
     </div>
@@ -83,7 +83,7 @@ const createBrand = async () => {
     });
     console.log("Response:", response.data);
     toast.success('Brand Created Successfully!');
-    router.push({ name: "BrandList" });
+    router.push({ name: "BrandIndex" });
   } catch (error) {
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;

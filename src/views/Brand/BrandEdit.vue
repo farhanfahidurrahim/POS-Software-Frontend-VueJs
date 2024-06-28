@@ -6,7 +6,7 @@
       <h2 class="m-0">Brand Edit</h2>
     </div>
     <div>
-      <router-link :to="{ name: 'BrandList' }" class="btn btn-sm btn-success"
+      <router-link :to="{ name: 'BrandIndex' }" class="btn btn-sm btn-success"
         >Back List</router-link
       >
     </div>
@@ -97,7 +97,7 @@ const fetchBrand = async () => {
 const updateBrand = async () => {
   try {
     await axios.put(`/api/v1/brands/${route.params.id}`, brand.value);
-    router.push({ name: "BrandList" });
+    router.push({ name: "BrandIndex" });
   } catch (error) {
     console.error("Error updating brand:", error);
   }

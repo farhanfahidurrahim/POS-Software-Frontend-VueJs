@@ -3,12 +3,11 @@
     <!-- Sidebar content here -->
     <ul class="sidebar-menu">
       <li><router-link to="/dashboard">Dashboard</router-link></li>
-      <li><router-link to="/users">Users</router-link></li>
-      <li><router-link to="/brands/list">Product</router-link></li>
-      <li><router-link to="/brands/list">Category</router-link></li>
-      <li><router-link to="/brands/list">Brands</router-link></li>
-      <li><router-link to="/brands/list">Profile</router-link></li>
-      <li><router-link to="/brands/list">Settings</router-link></li>
+      <li><router-link to="/products">Product</router-link></li>
+      <li><router-link to="/categories">Category</router-link></li>
+      <li><router-link to="/brands">Brands</router-link></li>
+      <li><router-link to="/brands">Profile</router-link></li>
+      <li><router-link to="/brands">Settings</router-link></li>
       <!-- Add more menu items as needed -->
     </ul>
   </aside>

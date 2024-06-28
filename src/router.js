@@ -1,10 +1,12 @@
 import { createWebHistory, createRouter } from "vue-router";
 import Login from "./views/Auth/Login.vue";
 import Dashboard from "./views/Dashboard.vue";
-import User from "./views/User.vue";
-import BrandList from "./views/Brand/BrandList.vue";
+import BrandIndex from "./views/Brand/BrandIndex.vue";
 import BrandCreate from "./views/Brand/BrandCreate.vue";
 import BrandEdit from "./views/Brand/BrandEdit.vue";
+import CategoryIndex from "./views/Category/CategoryIndex.vue";
+import ProductIndex from "./views/Product/ProductIndex.vue";
+import ProductCreate from "./views/Product/ProductCreate.vue";
 
 const routes = [{
         path: "/",
@@ -24,10 +26,12 @@ const routes = [{
         component: Dashboard,
         meta: { requiresAuth: true },
     },
+
+    // Brand
     {
-        path: "/users",
-        name: "User",
-        component: User,
+        path: "/brands",
+        name: "BrandIndex",
+        component: BrandIndex,
         meta: { requiresAuth: true },
     },
     {
@@ -37,17 +41,32 @@ const routes = [{
         meta: { requiresAuth: true },
     },
     {
-        path: "/brands/list",
-        name: "BrandList",
-        component: BrandList,
-        meta: { requiresAuth: true },
-        meta: { requiresAuth: true },
-    },
-    {
         path: "/brands/:id/edit",
         name: "BrandEdit",
         component: BrandEdit,
         props: true,
+        meta: { requiresAuth: true },
+    },
+
+    //Category
+    {
+        path: "/categories",
+        name: "CategoryIndex",
+        component: CategoryIndex,
+        meta: { requiresAuth: true },
+    },
+
+    // Product
+    {
+        path: "/products",
+        name: "ProductIndex",
+        component: ProductIndex,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/products/create",
+        name: "ProductCreate",
+        component: ProductCreate,
         meta: { requiresAuth: true },
     },
 ];
