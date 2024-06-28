@@ -60,7 +60,7 @@
             </td>
             <td>
               <router-link
-                :to="{ name: 'BrandEdit', params: { id: product.id } }"
+                :to="{ name: 'ProductView', params: { id: product.id } }"
                 class="btn btn-sm btn-info mx-2"
               >
                 View

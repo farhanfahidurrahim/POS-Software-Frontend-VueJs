@@ -7,6 +7,7 @@ import BrandEdit from "./views/Brand/BrandEdit.vue";
 import CategoryIndex from "./views/Category/CategoryIndex.vue";
 import ProductIndex from "./views/Product/ProductIndex.vue";
 import ProductCreate from "./views/Product/ProductCreate.vue";
+import ProductView from "./views/Product/ProductView.vue";
 
 const routes = [{
         path: "/",
@@ -67,6 +68,13 @@ const routes = [{
         path: "/products/create",
         name: "ProductCreate",
         component: ProductCreate,
+        meta: { requiresAuth: true },
+    },
+    {
+        path: "/products/:id/view",
+        name: "ProductView",
+        component: ProductView,
+        props: true,
         meta: { requiresAuth: true },
     },
 ];
