@@ -6,6 +6,8 @@
       <li><router-link to="/products">Product</router-link></li>
       <li><router-link to="/categories">Category</router-link></li>
       <li><router-link to="/brands">Brands</router-link></li>
+      <li><router-link to="/customers">Customers</router-link></li>
+      <li><router-link to="/pos">Pos</router-link></li>
       <li><router-link to="/brands">Profile</router-link></li>
       <li><router-link to="/brands">Settings</router-link></li>
       <!-- Add more menu items as needed -->
