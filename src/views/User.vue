@@ -20,21 +20,20 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 
 
-const fetchBrands = async () => {
+const fetchData = async () => {
   try {
     const response = await axios.get(
-      `${import.meta.env.VITE_BASE_API_URL}/api/v1/brands`
+      `${import.meta.env.VITE_BASE_API_URL}/api/v1/users`
     );
     console.log("response=>", response);
-    brands.value = response.data;
+    users.value = response.data;
   } catch (error) {
     console.log("Error fetching=>", error);
     return []
   }
 };
 
-// const brands = ref(await fetchBrands());
+// const users = ref(await fetchData());
 
-
-// onMounted(fetchBrands);
+// onMounted(fetchData);
 </script>
