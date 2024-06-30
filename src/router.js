@@ -10,6 +10,7 @@ import ProductIndex from "./views/Product/ProductIndex.vue";
 import ProductCreate from "./views/Product/ProductCreate.vue";
 import ProductView from "./views/Product/ProductView.vue";
 import Pos from "./views/Order/Pos.vue";
+import OrderIndex from "./views/Order/OrderIndex.vue";
 
 const routes = [
   {
@@ -89,11 +90,17 @@ const routes = [
     meta: { requiresAuth: true },
   },
 
-  // POS
+  // POS | Order
   {
     path: "/pos",
     name: "Pos",
     component: Pos,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/orders",
+    name: "OrderIndex",
+    component: OrderIndex,
     meta: { requiresAuth: true },
   },
 ];
