@@ -10,14 +10,12 @@
       <li><router-link to="/pos">Pos</router-link></li>
       <li><router-link to="/orders">Orders</router-link></li>
       <li><router-link to="/profile">Profile</router-link></li>
-      <li><router-link to="/brands">Settings</router-link></li>
-      <!-- Add more menu items as needed -->
+      <li><router-link to="/settings">Settings</router-link></li>
     </ul>
   </aside>
 </template>
 
 <script setup>
-// Add any logic here if needed
 </script>
 
 <style scoped>
