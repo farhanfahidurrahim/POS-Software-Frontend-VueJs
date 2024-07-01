@@ -57,6 +57,14 @@
               <label for="customerName" class="form-label">User Name:</label>
               Farhan
             </div>
+            <div class="col-md-12 mb-3">
+              <label for="customerName" class="form-label">User Phone:</label>
+              Farhan
+            </div>
+            <div class="col-md-12 mb-3">
+              <label for="customerName" class="form-label">User Email:</label>
+              Farhan
+            </div>
           </div>
           <div class="vertical-divider"></div>
           <div class="col-md-6">
@@ -65,6 +73,14 @@
             <form action="">
               <div class="col-md-12 mb-3">
                 <label for="customerName" class="form-label">User Name:</label>
+                <input type="text" />
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="customerName" class="form-label">User Phone:</label>
+                <input type="text" />
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="customerName" class="form-label">User Email:</label>
                 <input type="text" />
               </div>
               <button type="submit" class="btn btn-primary">Update</button>
@@ -83,7 +99,7 @@
         <div class="row">
           <div class="col-md-12">
             <!-- Customer Information -->
-            <form @submit.prevent="updateProfile">
+            <form @submit.prevent="updatePassword">
               <!-- <h4 class="m-0 mb-3">Password Update</h4> -->
               <hr />
               <div class="col-md-12 mb-3">
@@ -114,12 +130,55 @@
       </div>
     </div>
   </div>
+  <!-- Loading indicator -->
+  <div v-if="loading" class="text-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
 </template>
 
 <script setup>
-const updateProfile = () => {
-  // Your updateProfile method
+import { ref, onMounted } from "vue";
+import axios from "../http.js";
+
+const profile = ref([]);
+const loading = ref(false);
+
+const password = ref({
+  current_password: "",
+  password: "",
+  password_confirmation: "",
+});
+
+// Fetch data
+const fetchData = async (url = "/api/v1/users") => {
+  try {
+    loading.value = true;
+    const response = await axios.get(url);
+    profile.value = response.data.data;
+    console.log("profile", response);
+  } catch (error) {
+  } finally {
+    loading.value = false;
+  }
 };
+
+const updatePassword = async (url = "user/profile/password-change") => {
+  try {
+    const response = await axios.post(url, {
+      current_password: password.value.current_password,
+      password: password.value.password,
+      password_confirmation: password.value.password_confirmation,
+    });
+    console.log("Password Update", response);
+    toast.success("Update Password Successfully!");
+  } catch (error) {}
+};
+
+onMounted(() => {
+  fetchData();
+});
 </script>
 
 <style scoped>
