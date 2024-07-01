@@ -6,12 +6,15 @@ import BrandCreate from "./views/Brand/BrandCreate.vue";
 import BrandEdit from "./views/Brand/BrandEdit.vue";
 import CategoryIndex from "./views/Category/CategoryIndex.vue";
 import CustomerIndex from "./views/Customer/CustomerIndex.vue";
+import CustomerCreate from "./views/Customer/CustomerCreate.vue";
+import CustomerEdit from "./views/Customer/CustomerEdit.vue";
 import OrderIndex from "./views/Order/OrderIndex.vue";
 import ProductIndex from "./views/Product/ProductIndex.vue";
 import ProductCreate from "./views/Product/ProductCreate.vue";
 import ProductView from "./views/Product/ProductView.vue";
 import Profile from "./views/Profile.vue";
 import Pos from "./views/Order/Pos.vue";
+import SalesReport from "./views/Report/SalesReport.vue";
 import Setting from "./views/Setting.vue";
 
 const routes = [
@@ -70,6 +73,18 @@ const routes = [
     component: CustomerIndex,
     meta: { requiresAuth: true },
   },
+  {
+    path: "/customer/create",
+    name: "CustomerCreate",
+    component: CustomerCreate,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: "/customer/edit",
+    name: "CustomerEdit",
+    component: CustomerEdit,
+    meta: { requiresAuth: true },
+  },
 
   // Product
   {
@@ -112,6 +127,14 @@ const routes = [
     path: "/orders",
     name: "OrderIndex",
     component: OrderIndex,
+    meta: { requiresAuth: true },
+  },
+
+  // Report
+  {
+    path: "/sales-report",
+    name: "SalesReport",
+    component: SalesReport,
     meta: { requiresAuth: true },
   },
 

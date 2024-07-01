@@ -10,13 +10,37 @@
       <li><router-link to="/pos">Pos</router-link></li>
       <li><router-link to="/orders">Orders</router-link></li>
       <li><router-link to="/profile">Profile</router-link></li>
+
+      <!-- Report Dropdown -->
+      <li class="nav-item dropdown">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="reportDropdown"
+          role="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Report
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="reportDropdown">
+          <li>
+            <router-link to="/sales-report" class="dropdown-item"
+              >Sales Report</router-link
+            >
+          </li>
+          <li>
+            <router-link to="#" class="dropdown-item">### Report</router-link>
+          </li>
+        </ul>
+      </li>
+
       <li><router-link to="/settings">Settings</router-link></li>
     </ul>
   </aside>
 </template>
 
-<script setup>
-</script>
+<script setup></script>
 
 <style scoped>
 .sidebar {
