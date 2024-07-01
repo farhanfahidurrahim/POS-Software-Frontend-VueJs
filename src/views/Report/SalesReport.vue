@@ -39,7 +39,7 @@
       <!-- Row 2 -->
       <div class="col-md-3">
         <div class="p-3 border bg-light">
-          <p>{{ fetchSaleReport.total_paidAmount }}</p>
+          <p>{{ fetchSaleReport.total_dueAmount }}</p>
           <h6>Total Due Amount</h6>
         </div>
       </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted } from "vue";
 import axios from "../../http.js";
 import { useToast } from "vue-toastification";
 
@@ -75,20 +75,20 @@ const loading = ref(false);
 const fetchSaleReport = ref({
   total_sale: 0,
   total_saleQuantity: 0,
-  total_saleAmount: 0,
-  total_paidAmount: 0,
-  total_dueAmount: 0,
-  total_shippingCharge: 0,
+  total_saleAmount: "0.00",
+  total_paidAmount: "0.00",
+  total_dueAmount: "0.00",
+  total_shippingCharge: "0.00",
   total_cancelSale: 0,
-  total_cancelSaleAmount: 0,
+  total_cancelSaleAmount: "0.00",
 });
 
 const fetchData = async (url = "api/v1/report/sale") => {
   try {
     loading.value = true;
     const response = await axios.get(url);
-    fetchSaleReport.value = response.data.data;
-    console.log("sale report", response);
+    fetchSaleReport.value = response.data;
+    console.log("sale-report", response);
   } catch (error) {
     console.error("Error fetching:", error);
     toast.error("Failed to fetch.");
