@@ -16,6 +16,7 @@ import Profile from "./views/Profile.vue";
 import Pos from "./views/Order/Pos.vue";
 import SalesReport from "./views/Report/SalesReport.vue";
 import Setting from "./views/Setting.vue";
+import Portfolio from "./views/Portfolio/Portfolio.vue";
 
 const routes = [
   {
@@ -145,6 +146,13 @@ const routes = [
     component: Setting,
     meta: { requiresAuth: true },
   },
+
+  // Portfolio
+  {
+    path: "/portfolio",
+    name: "Portfolio",
+    component: Portfolio,
+  },
 ];
 
 const BASE_URL = import.meta.env.BASE_URL || "/";
@@ -163,7 +171,8 @@ router.beforeEach((to, from, next) => {
     next({ name: "Login" });
   } else {
     // If the route does not have a meta layout defined, set it to 'DashboardLayout'
-    if (to.meta.layout === undefined) {
+    // if (to.meta.layout === undefined) {
+    if (to.meta.layout === undefined && to.name !== "Portfolio") {
       to.meta.layout = "DashboardLayout";
     }
     next();

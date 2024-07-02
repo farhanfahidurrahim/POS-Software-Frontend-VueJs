@@ -10,7 +10,6 @@
       <li><router-link to="/pos">Pos</router-link></li>
       <li><router-link to="/orders">Orders</router-link></li>
       <li><router-link to="/profile">Profile</router-link></li>
-
       <!-- Report Dropdown -->
       <li class="nav-item dropdown">
         <a
@@ -36,6 +35,7 @@
       </li>
 
       <li><router-link to="/settings">Settings</router-link></li>
+      <li><router-link to="/portfolio">Portfolio</router-link></li>
     </ul>
   </aside>
 </template>
