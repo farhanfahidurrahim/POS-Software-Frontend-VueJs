@@ -198,7 +198,7 @@ const deleteProduct = async (id) => {
   }
 };
 
-// Computed property to filter list based on search query
+// Computed filter based on search query
 const products = computed(() => {
   return fetchProducts.value.filter((product) => {
     return product.name.toLowerCase().includes(searchQuery.value.toLowerCase());
