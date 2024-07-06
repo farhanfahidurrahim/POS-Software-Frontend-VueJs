@@ -10,7 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <router-link class="nav-link" to="/">Home</router-link>
+            <router-link class="nav-link" to="#">Admin Name</router-link>
           </li>
           <li class="nav-item" v-if="isLoggedIn">
             <button @click="logout" class="btn btn-link nav-link">Logout</button>

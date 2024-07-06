@@ -7,7 +7,7 @@
       <li><router-link to="/categories">Category</router-link></li>
       <li><router-link to="/brands">Brands</router-link></li>
       <li><router-link to="/customers">Customers</router-link></li>
-      <li><router-link to="/pos">Pos</router-link></li>
+      <li><router-link to="/pos">POS</router-link></li>
       <li><router-link to="/orders">Orders</router-link></li>
       <!-- Report Dropdown -->
       <li class="nav-item dropdown">

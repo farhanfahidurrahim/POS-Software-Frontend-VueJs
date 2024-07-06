@@ -68,10 +68,11 @@
       // Handle successful login
       console.log("Login successful:", response.data);
       const { token, user } = response.data.data;
-      localStorage.setItem("authToken", token); // Save the token in local storage
+      localStorage.setItem("authToken", token.toString());
+       // Save the token in local storage
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set the token for future requests
       toast.success("Login successful!");
-      router.push({ name: "Dashboard" }); // Redirect to the dashboard page
+      // router.push({ name: "Dashboard" }); // Redirect to the dashboard page
     } catch (error) {
       if (error.response && error.response.data.errors) {
         errors.value = parseErrors(error.response.data.errors);
