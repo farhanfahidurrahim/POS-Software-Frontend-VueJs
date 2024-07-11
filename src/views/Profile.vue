@@ -182,17 +182,16 @@ const fetchData = async => {
   }
 };
 
-const updateProfile = async (url = "user/profile/update") => {
+const updateProfile = async () => {
   try {
     const { name, phone, email } = form.value;
     user.value.name = name;
     user.value.phone = phone;
     user.value.email = email;
+    
+    localStorage.setItem("user", JSON.stringify(user.value));
 
-    // console.log("Update Profile", user.value);
-    // localStorage.setItem("user", JSON.stringify(user.value));
-
-    const response = await axios.post(url, {
+    const response = await axios.post("/api/v1/user/profile/update", {
       name,
       phone_number: phone,
       email
@@ -206,17 +205,17 @@ const updateProfile = async (url = "user/profile/update") => {
   }
 };
 
-const updatePassword = async (url = "user/profile/password-change") => {
-  try {
-    const response = await axios.post(url, {
-      current_password: password.value.current_password,
-      password: password.value.password,
-      password_confirmation: password.value.password_confirmation,
-    });
-    console.log("Password Update", response);
-    toast.success("Update Password Successfully!");
-  } catch (error) {}
-};
+// const updatePassword = async (url = "user/profile/password-change") => {
+//   try {
+//     const response = await axios.post(url, {
+//       current_password: password.value.current_password,
+//       password: password.value.password,
+//       password_confirmation: password.value.password_confirmation,
+//     });
+//     console.log("Password Update", response);
+//     toast.success("Update Password Successfully!");
+//   } catch (error) {}
+// };
 
 onMounted(() => {
   fetchData();
