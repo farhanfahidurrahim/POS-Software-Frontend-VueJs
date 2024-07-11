@@ -66,13 +66,30 @@
       });
   
       // Handle successful login
-      console.log("Login successful:", response.data);
-      const { token, user } = response.data.data;
-      localStorage.setItem("authToken", token.toString());
-       // Save the token in local storage
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; // Set the token for future requests
-      toast.success("Login successful!");
-      // router.push({ name: "Dashboard" }); // Redirect to the dashboard page
+      console.log("Response", response);
+      const data = response.data.data;
+      console.log("Data:", data);
+      if(data && data.token){
+        const { token, user } = data;
+        console.log("Token:", token);
+        console.log("User:", user);
+
+        // Save token, userinfo in local storage
+        const userData = {
+          name: user.name,
+          phone: user.phone_number,
+          email: user.email,
+        }
+        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("authToken", token.toString());
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        toast.success("Login successful!");
+        router.push({ name: "Dashboard" });
+      } else {
+        console.error("Something undefined");
+        toast.error("Login failed!");
+      }
     } catch (error) {
       if (error.response && error.response.data.errors) {
         errors.value = parseErrors(error.response.data.errors);
@@ -87,7 +104,7 @@
     let parsedErrors = {};
     for (let key in errorObj) {
       if (Array.isArray(errorObj[key])) {
-        parsedErrors[key] = errorObj[key][0]; // Get the first error message from the array
+        parsedErrors[key] = errorObj[key][0];
       } else {
         parsedErrors[key] = errorObj[key];
       }
