@@ -42,7 +42,6 @@
 
     <!-- Tab Content -->
     <div class="tab-content" id="profileTabContent">
-
       <!-- Profile Details & Update Tab -->
       <div
         class="tab-pane fade show active"
@@ -56,15 +55,15 @@
             <hr />
             <div class="col-md-12 mb-3">
               <label for="customerName" class="form-label">User Name: </label>
-                <span>{{ user.name }}</span>
+              <span>{{ user.name }}</span>
             </div>
             <div class="col-md-12 mb-3">
               <label for="customerName" class="form-label">User Phone:</label>
-                <span>{{ user.phone}}</span>
+              <span>{{ user.phone }}</span>
             </div>
             <div class="col-md-12 mb-3">
               <label for="customerName" class="form-label">User Email:</label>
-               <span>{{ user.email}}</span>
+              <span>{{ user.email }}</span>
             </div>
           </div>
           <div class="vertical-divider"></div>
@@ -74,26 +73,62 @@
               <hr />
               <div class="col-md-12 mb-3">
                 <label for="name" class="form-label"
-                >User Name: <span class="text-danger">*</span></label
+                  >User Name: <span class="text-danger">*</span></label
                 >
-                <input type="text" class="form-control" id="customerName" v-model="form.name"/>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerName"
+                  v-model="form.name"
+                />
+                <div v-if="errors.name" class="text-danger">
+                  {{ errors.name[0] }}
+                </div>
               </div>
               <div class="col-md-12 mb-3">
                 <label for="phoneNumber" class="form-label"
-                >User Phone: <span class="text-danger">*</span></label
+                  >User Phone: <span class="text-danger">*</span></label
                 >
-                <input type="text" class="form-control" id="phoneNumber" v-model="form.phone"/>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phoneNumber"
+                  v-model="form.phone"
+                />
+                <div v-if="errors.phone_number" class="text-danger">
+                  {{ errors.phone_number[0] }}
+                </div>
               </div>
-
               <div class="col-md-12 mb-3">
                 <label for="email" class="form-label"
-                >User Email: <span class="text-danger">*</span></label
+                  >User Email: <span class="text-danger">*</span></label
                 >
-                <input type="email" class="form-control" id="customerEmail" v-model="form.email"/>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="customerEmail"
+                  v-model="user.email"
+                  readonly
+                />
+                <div v-if="errors.email" class="text-danger">
+                  {{ errors.email[0] }}
+                </div>
               </div>
-              <button type="submit" class="btn btn-success mt-3">
-                Update
-              </button>
+              <div class="col-md-12 mb-3">
+                <label for="email" class="form-label"
+                  >User Current Password:
+                  <span class="text-danger">*</span></label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  v-model="form.password"
+                />
+                <div v-if="errors.password" class="text-danger">
+                  {{ errors.password[0] }}
+                </div>
+              </div>
+              <button type="submit" class="btn btn-success mt-3">Update</button>
             </form>
           </div>
         </div>
@@ -116,7 +151,11 @@
                 <label for="name" class="form-label"
                   >Current Password: <span class="text-danger">*</span></label
                 >
-                <input type="text" class="form-control" id="customerName" v-model="user.name"/>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="customerName"
+                />
               </div>
               <div class="col-md-12 mb-3">
                 <label for="phoneNumber" class="form-label"
@@ -151,16 +190,18 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import axios from "../http.js";
-import {useToast} from "vue-toastification";
+import { useToast } from "vue-toastification";
 
 const loading = ref(false);
+const errors = ref({});
 const toast = useToast();
 
 const user = ref([]);
 const form = ref({
-  name: '',
-  phone: '',
-  email: ''
+  name: "",
+  phone: "",
+  email: "",
+  password: "",
 });
 const password = ref({
   current_password: "",
@@ -169,7 +210,7 @@ const password = ref({
 });
 
 // Fetch data form Local Storage
-const fetchData = async => {
+const fetchData = (async) => {
   try {
     loading.value = true;
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -184,24 +225,30 @@ const fetchData = async => {
 
 const updateProfile = async () => {
   try {
-    const { name, phone, email } = form.value;
+    const { name, phone, email, password } = form.value;
     user.value.name = name;
     user.value.phone = phone;
     user.value.email = email;
-    
+    user.value.password = password;
+
     localStorage.setItem("user", JSON.stringify(user.value));
 
     const response = await axios.post("/api/v1/user/profile/update", {
       name,
       phone_number: phone,
-      email
+      email,
+      password
     });
 
     console.log("Update Profile", response.data);
     toast.success("Profile updated successfully!");
   } catch (error) {
-    console.error("Error updating profile", error);
-    toast.error('Failed to update profile.');
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    } else {
+      console.error("Error updating profile", error);
+      toast.error("Failed to update profile.");
+    }
   }
 };
 
