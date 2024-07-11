@@ -184,18 +184,20 @@ const fetchData = async => {
 
 const updateProfile = async (url = "user/profile/update") => {
   try {
-    user.value.name = form.value.name;
-    user.value.phone = form.value.phone;
-    user.value.email = form.value.email;
-    console.log("Update Profile", user.value);
-    localStorage.setItem("user", JSON.stringify(user.value));
+    const { name, phone, email } = form.value;
+    user.value.name = name;
+    user.value.phone = phone;
+    user.value.email = email;
 
-    console.log('URL:', url);
+    // console.log("Update Profile", user.value);
+    // localStorage.setItem("user", JSON.stringify(user.value));
+
     const response = await axios.post(url, {
-      name: form.value.name,
-      phone_number: form.value.phone,
-      email: form.value.email
+      name,
+      phone_number: phone,
+      email
     });
+
     console.log("Update Profile", response.data);
     toast.success("Profile updated successfully!");
   } catch (error) {
