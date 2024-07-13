@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="row">
-      <!-- Product Images Section -->
+      <!-- Cart Section Left -->
       <div class="col-md-8">
         <div class="row">
           <div
@@ -32,7 +32,12 @@
             </div>
           </div>
         </div>
+        <!-- Show More button -->
+        <button v-if="displayedVariations.length < variations.length" @click="showMoreVariations" class="btn btn-link mt-2">
+          Show More
+        </button>
       </div>
+      <!-- Cart Section Right -->
       <div class="col-md-4">
         <!-- Customer Information -->
         <form @submit.prevent="createOrder">
@@ -222,6 +227,7 @@ const toast = useToast();
 
 const errors = ref({});
 const variations = ref([]);
+const displayedVariations = ref([]);
 const cart = ref([]);
 const customerSuggestions = ref([]);
 
@@ -246,10 +252,18 @@ const fetchVariations = async (url = "/api/v1/all-variations") => {
     const response = await axios.get(url);
     variations.value = response.data.data;
     console.log("Response:", response); // Log the entire response object
+    displayedVariations.value = variations.value.slice(0, 18);
   } catch (error) {
     console.error("Error fetching variations:", error);
     toast.error("Failed to fetch variations.");
   }
+};
+
+// Function to load more variations
+const showMoreVariations = () => {
+  const currentLength = displayedVariations.value.length;
+  const nextBatch = variations.value.slice(currentLength, currentLength + 6); // Load next 6 items, adjust as needed
+  displayedVariations.value = [...displayedVariations.value, ...nextBatch];
 };
 
 // Fetch customers based on phone number
