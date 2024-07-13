@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-4"
+        class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-4"
     >
       <div>
         <h2 class="m-0">Profile</h2>
@@ -12,28 +12,28 @@
     <ul class="nav nav-tabs" id="profileTab" role="tablist">
       <li class="nav-item" role="presentation">
         <button
-          class="nav-link active"
-          id="profile-details-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#profile-details"
-          type="button"
-          role="tab"
-          aria-controls="profile-details"
-          aria-selected="true"
+            class="nav-link active"
+            id="profile-details-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#profile-details"
+            type="button"
+            role="tab"
+            aria-controls="profile-details"
+            aria-selected="true"
         >
           Profile Details
         </button>
       </li>
       <li class="nav-item" role="presentation">
         <button
-          class="nav-link"
-          id="profile-password-tab"
-          data-bs-toggle="tab"
-          data-bs-target="#profile-password"
-          type="button"
-          role="tab"
-          aria-controls="profile-password"
-          aria-selected="false"
+            class="nav-link"
+            id="profile-password-tab"
+            data-bs-toggle="tab"
+            data-bs-target="#profile-password"
+            type="button"
+            role="tab"
+            aria-controls="profile-password"
+            aria-selected="false"
         >
           Password Change
         </button>
@@ -44,15 +44,15 @@
     <div class="tab-content" id="profileTabContent">
       <!-- Profile Details & Update Tab -->
       <div
-        class="tab-pane fade show active"
-        id="profile-details"
-        role="tabpanel"
-        aria-labelledby="profile-details-tab"
+          class="tab-pane fade show active"
+          id="profile-details"
+          role="tabpanel"
+          aria-labelledby="profile-details-tab"
       >
         <div class="row">
           <!-- Customer Information -->
           <div class="col-md-6">
-            <hr />
+            <hr/>
             <div class="col-md-12 mb-3">
               <label for="customerName" class="form-label">User Name: </label>
               <span>{{ user.name }}</span>
@@ -69,16 +69,16 @@
           <div class="col-md-12">
             <!-- Customer Information -->
             <form @submit.prevent="updateProfile">
-              <hr />
+              <hr/>
               <div class="col-md-12 mb-3">
                 <label for="name" class="form-label"
-                  >User Name: <span class="text-danger">*</span></label
+                >User Name: <span class="text-danger">*</span></label
                 >
                 <input
-                  type="text"
-                  class="form-control"
-                  id="customerName"
-                  v-model="form.name"
+                    type="text"
+                    class="form-control"
+                    id="customerName"
+                    v-model="form.name"
                 />
                 <div v-if="errors.name" class="text-danger">
                   {{ errors.name[0] }}
@@ -86,13 +86,13 @@
               </div>
               <div class="col-md-12 mb-3">
                 <label for="phoneNumber" class="form-label"
-                  >User Phone: <span class="text-danger">*</span></label
+                >User Phone: <span class="text-danger">*</span></label
                 >
                 <input
-                  type="text"
-                  class="form-control"
-                  id="phoneNumber"
-                  v-model="form.phone"
+                    type="text"
+                    class="form-control"
+                    id="phoneNumber"
+                    v-model="form.phone"
                 />
                 <div v-if="errors.phone_number" class="text-danger">
                   {{ errors.phone_number[0] }}
@@ -100,14 +100,14 @@
               </div>
               <div class="col-md-12 mb-3">
                 <label for="email" class="form-label"
-                  >User Email: <span class="text-danger">*</span></label
+                >User Email: <span class="text-danger">*</span></label
                 >
                 <input
-                  type="email"
-                  class="form-control"
-                  id="customerEmail"
-                  v-model="user.email"
-                  readonly
+                    type="email"
+                    class="form-control"
+                    id="customerEmail"
+                    v-model="user.email"
+                    readonly
                 />
                 <div v-if="errors.email" class="text-danger">
                   {{ errors.email[0] }}
@@ -115,13 +115,13 @@
               </div>
               <div class="col-md-12 mb-3">
                 <label for="email" class="form-label"
-                  >User Current Password:
+                >User Current Password:
                   <span class="text-danger">*</span></label
                 >
                 <input
-                  type="password"
-                  class="form-control"
-                  v-model="form.password"
+                    type="password"
+                    class="form-control"
+                    v-model="form.password"
                 />
                 <div v-if="errors.password" class="text-danger">
                   {{ errors.password[0] }}
@@ -135,39 +135,49 @@
 
       <!-- Profile Password Change Tab -->
       <div
-        class="tab-pane fade"
-        id="profile-password"
-        role="tabpanel"
-        aria-labelledby="profile-password-tab"
+          class="tab-pane fade"
+          id="profile-password"
+          role="tabpanel"
+          aria-labelledby="profile-password-tab"
       >
         <div class="row">
           <div class="col-md-12">
             <!-- Customer Information -->
             <form @submit.prevent="updatePassword">
               <!-- <h4 class="m-0 mb-3">Password Update</h4> -->
-              <hr />
+              <hr/>
               <div class="col-md-12 mb-3">
                 <label for="name" class="form-label"
-                  >Current Password: <span class="text-danger">*</span></label
+                >Current Password: <span class="text-danger">*</span></label
                 >
                 <input
-                  type="text"
-                  class="form-control"
-                  id="customerName"
+                    type="password"
+                    class="form-control"
+                    v-model="passwordForm.current_password"
                 />
+                <div v-if="errors.current_password" class="text-danger">
+                  {{ errors.current_password[0] }}
+                </div>
+                <div v-if="customMessageError" class="text-danger">Incorrect credentials. Please try again.</div>
               </div>
               <div class="col-md-12 mb-3">
                 <label for="phoneNumber" class="form-label"
-                  >New Password: <span class="text-danger">*</span></label
+                >New Password: <span class="text-danger">*</span></label
                 >
-                <input type="text" class="form-control" id="phoneNumber" />
+                <input type="password" class="form-control"
+                       v-model="passwordForm.password"
+                />
+                <div v-if="errors.password" class="text-danger">
+                  {{ errors.password[0] }}
+                </div>
               </div>
 
               <div class="col-md-12 mb-3">
                 <label for="email" class="form-label"
-                  >Confirm Password: <span class="text-danger">*</span></label
+                >Confirm Password: <span class="text-danger">*</span></label
                 >
-                <input type="email" class="form-control" id="customerEmail" />
+                <input type="password" class="form-control"
+                       v-model="passwordForm.password_confirmation"/>
               </div>
               <button type="submit" class="btn btn-success mt-3">
                 Update Password
@@ -187,9 +197,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import {ref, onMounted} from "vue";
 import axios from "../http.js";
-import { useToast } from "vue-toastification";
+import {useToast} from "vue-toastification";
 
 const loading = ref(false);
 const errors = ref({});
@@ -201,11 +211,12 @@ const form = ref({
   phone: "",
   password: "",
 });
-const password = ref({
+const passwordForm = ref({
   current_password: "",
   password: "",
   password_confirmation: "",
 });
+const customMessageError = ref(false);
 
 // Fetch data form Local Storage
 const fetchData = (async) => {
@@ -225,14 +236,14 @@ const fetchData = (async) => {
 
 const updateProfile = async () => {
   try {
-    const { name, phone, password } = form.value;
+    const {name, phone, password} = form.value;
     const response = await axios.post("/api/v1/user/profile/update", {
       name,
       phone_number: phone,
       password
     });
 
-    if(response.status === 200){
+    if (response.status === 200) {
       user.value.name = name;
       user.value.phone = phone;
       localStorage.setItem("user", JSON.stringify(user.value));
@@ -250,17 +261,28 @@ const updateProfile = async () => {
   }
 };
 
-// const updatePassword = async (url = "user/profile/password-change") => {
-//   try {
-//     const response = await axios.post(url, {
-//       current_password: password.value.current_password,
-//       password: password.value.password,
-//       password_confirmation: password.value.password_confirmation,
-//     });
-//     console.log("Password Update", response);
-//     toast.success("Update Password Successfully!");
-//   } catch (error) {}
-// };
+const updatePassword = async () => {
+  try {
+    const url = "/api/v1/user/profile/password-change";
+    const response = await axios.post(url, {
+      current_password: passwordForm.value.current_password,
+      password: passwordForm.value.password,
+      password_confirmation: passwordForm.value.password_confirmation,
+    });
+    console.log("Password Update", response);
+    toast.success("Update Password Successfully!");
+  } catch (error) {
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    } else {
+      console.error("Error", error)
+    }
+    // Check for specific error message
+    if (error.response && error.response.status === 422) {
+      customMessageError.value = true;
+    }
+  }
+};
 
 onMounted(() => {
   fetchData();
@@ -271,9 +293,11 @@ onMounted(() => {
 .profile-details {
   border-right: 1px solid #ccc;
 }
+
 .profile-password {
   padding: 15px;
 }
+
 .vertical-divider {
   border-right: 1px solid #b10d0d;
   height: auto;
