@@ -66,7 +66,6 @@
               <span>{{ user.email }}</span>
             </div>
           </div>
-          <div class="vertical-divider"></div>
           <div class="col-md-12">
             <!-- Customer Information -->
             <form @submit.prevent="updateProfile">
@@ -200,7 +199,6 @@ const user = ref([]);
 const form = ref({
   name: "",
   phone: "",
-  email: "",
   password: "",
 });
 const password = ref({
@@ -216,6 +214,8 @@ const fetchData = (async) => {
     const userData = JSON.parse(localStorage.getItem("user"));
     console.log("UserData", userData);
     user.value = userData || {};
+    form.value.name = user.value.name;
+    form.value.phone = user.value.phone;
   } catch (error) {
     console.error("Error fetching user data", error);
   } finally {
@@ -225,23 +225,21 @@ const fetchData = (async) => {
 
 const updateProfile = async () => {
   try {
-    const { name, phone, email, password } = form.value;
-    user.value.name = name;
-    user.value.phone = phone;
-    user.value.email = email;
-    user.value.password = password;
-
-    localStorage.setItem("user", JSON.stringify(user.value));
-
+    const { name, phone, password } = form.value;
     const response = await axios.post("/api/v1/user/profile/update", {
       name,
       phone_number: phone,
-      email,
       password
     });
 
+    if(response.status === 200){
+      user.value.name = name;
+      user.value.phone = phone;
+      localStorage.setItem("user", JSON.stringify(user.value));
+      toast.success("Profile updated successfully!");
+      location.reload()
+    }
     console.log("Update Profile", response.data);
-    toast.success("Profile updated successfully!");
   } catch (error) {
     if (error.response && error.response.data.errors) {
       errors.value = error.response.data.errors;
