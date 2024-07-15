@@ -7,12 +7,12 @@
     </div>
 
     <ul class="sidebar-menu">
-      <li><router-link to="/dashboard" @click.native="closeAllSubmenus">Dashboard</router-link></li>
+      <li><router-link to="/dashboard" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'chart-line']" /> Dashboard</router-link></li>
       <li><router-link to="/products" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'bars']" /> Product</router-link></li>
-      <li><router-link to="/categories" @click.native="closeAllSubmenus">Category</router-link></li>
-      <li><router-link to="/brands" @click.native="closeAllSubmenus">Brands</router-link></li>
-      <li><router-link to="/customers" @click.native="closeAllSubmenus">Customers</router-link></li>
-      <li><router-link to="/pos" @click.native="closeAllSubmenus">POS</router-link></li>
+      <li><router-link to="/categories" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'list']" /> Category</router-link></li>
+      <li><router-link to="/brands" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'list']" /> Brands</router-link></li>
+      <li><router-link to="/customers" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'person-military-pointing']" /> Customers</router-link></li>
+      <li><router-link to="/pos" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'signs-post']" /> POS</router-link></li>
       <li><router-link to="/orders" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'file-pen']" /> Orders</router-link></li>
       <li>
         <a href="#" @click.prevent="toggleSubmenu('report')"><font-awesome-icon :icon="['fas', 'bars']" />
