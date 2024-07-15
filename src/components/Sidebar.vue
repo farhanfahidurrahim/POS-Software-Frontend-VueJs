@@ -8,12 +8,12 @@
 
     <ul class="sidebar-menu">
       <li><router-link to="/dashboard" @click.native="closeAllSubmenus">Dashboard</router-link></li>
-      <li><router-link to="/products" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'bars']" />Product</router-link></li>
+      <li><router-link to="/products" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'bars']" /> Product</router-link></li>
       <li><router-link to="/categories" @click.native="closeAllSubmenus">Category</router-link></li>
       <li><router-link to="/brands" @click.native="closeAllSubmenus">Brands</router-link></li>
       <li><router-link to="/customers" @click.native="closeAllSubmenus">Customers</router-link></li>
       <li><router-link to="/pos" @click.native="closeAllSubmenus">POS</router-link></li>
-      <li><router-link to="/orders" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'file-pen']" />Orders</router-link></li>
+      <li><router-link to="/orders" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'file-pen']" /> Orders</router-link></li>
       <li>
         <a href="#" @click.prevent="toggleSubmenu('report')"><font-awesome-icon :icon="['fas', 'bars']" />
           Report
@@ -38,14 +38,14 @@
         </ul>
       </li>
       <li>
-        <a href="#" @click.prevent="toggleSubmenu('purchase')"><font-awesome-icon :icon="['fas', 'store']" />Purchase</a>
+        <a href="#" @click.prevent="toggleSubmenu('purchase')"><font-awesome-icon :icon="['fas', 'store']" /> Purchase</a>
         <ul class="sidebar_submenu" :class="{ hidden: !openSubmenus.purchase }">
           <li><router-link to="/purchase" class="dropdown-item" @click.native="closeAllSubmenus">Index Purchase</router-link></li>
           <li><router-link to="/purchase/create" class="dropdown-item" @click.native="closeAllSubmenus">Create Purchase</router-link></li>
         </ul>
       </li>
-      <li><router-link to="/profile" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'user']" />Profile</router-link></li>
-      <li><router-link to="/settings" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'gear']" />Settings</router-link></li>
+      <li><router-link to="/profile" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'user']" /> Profile</router-link></li>
+      <li><router-link to="/settings" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'gear']" /> Settings</router-link></li>
     </ul>
   </aside>
 </template>
@@ -106,9 +106,5 @@ watch(route, () => {
 <style scoped>
 .hidden {
   display: none;
-}
-
-.chevron-icon{
-  margin-left: 25px;
 }
 </style>

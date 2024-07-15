@@ -87,6 +87,10 @@ ul.sidebar_submenu li a {
 ul.sidebar_submenu.hidden {
     transition: all .3s ease-in-out;
 }
+
+.chevron-icon{
+    margin-left: 50px;
+}
 /* Sidebar CSS Style End */
 
 /* Navbar CSS Style Start */
