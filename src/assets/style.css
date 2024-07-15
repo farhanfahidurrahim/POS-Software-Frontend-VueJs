@@ -42,7 +42,9 @@ ul.sidebar-menu li {
     padding: 14px;
     padding-left: 25px;
 }
-
+ul.sidebar-menu li ul.sidebar_submenu li a {
+    padding-left: 35px;
+}
 .sidebar-menu li a:hover {
     background-color: #000;
     color: #fff;
