@@ -1,34 +1,58 @@
 <template>
   <div>
     <div
-      class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-4"
+      class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-2"
     >
       <div>
-        <h2 class="m-0">Product List</h2>
+        <h4 class="m-0">Product List</h4>
       </div>
-      <div>
-        <router-link
-          :to="{ name: 'ProductCreate' }"
-          class="btn btn-sm btn-success"
-        >
-          Add Product
-        </router-link>
-      </div>
+
+     <div class="breadcrumb_right_action">
+       <div>
+         <input
+             type="text"
+             v-model="searchQuery"
+             class="form-control"
+             placeholder="Search by name..."
+         />
+       </div>
+
+       <div>
+         <router-link
+             :to="{ name: 'ProductCreate' }"
+             class="btn btn-sm btn-success"
+         >
+           Add Product
+         </router-link>
+       </div>
+     </div>
     </div>
 
-    <div class="mb-3">
-      <input
-        type="text"
-        v-model="searchQuery"
-        class="form-control"
-        placeholder="Search by name..."
-      />
+    <div
+        class="d-flex align-items-center justify-content-between p-2"
+    >
+     <div>
+       show
+       <select name="" id="">
+         <option>10</option>
+         <option>20</option>
+         <option>50</option>
+         <option>100</option>
+       </select>
+     </div>
+     <div>
+       <div class="btn-group border" role="group" aria-label="Basic example">
+         <button type="button" class="btn border-end">Excel</button>
+         <button type="button" class="btn ">PDF</button>
+       </div>
+     </div>
     </div>
 
-    <table class="table">
+
+    <table class="table table-md">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">SL</th>
           <th scope="col">Image</th>
           <th scope="col">Name</th>
           <th scope="col">Type</th>
@@ -46,7 +70,7 @@
             <img
               :src="product.image"
               alt="Product Image"
-              style="max-width: 125px; max-height: 75px"
+              style="max-width: 45px; max-height: 45px"
             />
           </td>
           <td>{{ product.name }}</td>
@@ -57,7 +81,7 @@
           <td>
             <button
               :class="[
-                'btn',
+                'btn btn-sm',
                 product.status === 'active' ? 'btn-success' : 'btn-secondary',
               ]"
               @click="toggleStatus(category)"

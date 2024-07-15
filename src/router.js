@@ -14,7 +14,10 @@ import ProductCreate from "./views/Product/ProductCreate.vue";
 import ProductView from "./views/Product/ProductView.vue";
 import Profile from "./views/Profile.vue";
 import Pos from "./views/Order/Pos.vue";
+import PurchaseIndex from "./views/Purchase/PurchaseIndex.vue";
+import PurchaseCreate from "./views/Purchase/PurchaseCreate.vue";
 import SalesReport from "./views/Report/SalesReport.vue";
+import PurchaseReport from "./views/Report/PurchaseReport.vue";
 import Setting from "./views/Setting.vue";
 
 const routes = [
@@ -123,11 +126,30 @@ const routes = [
         component: OrderIndex,
         meta: { requiresAuth: true, layout: 'main' },
     },
+    // Purchase
+    {
+        path: "/purchase",
+        name: "PurchaseIndex",
+        component: PurchaseIndex,
+        meta: { requiresAuth: true, layout: 'main' },
+    },
+    {
+        path: "/purchase/create",
+        name: "PurchaseCreate",
+        component: PurchaseCreate,
+        meta: { requiresAuth: true, layout: 'main' },
+    },
     // Report
     {
-        path: "/sales-report",
+        path: "/sales/report",
         name: "SalesReport",
         component: SalesReport,
+        meta: { requiresAuth: true, layout: 'main' },
+    },
+    {
+        path: "/purchase/report",
+        name: "PurchaseReport",
+        component: PurchaseReport,
         meta: { requiresAuth: true, layout: 'main' },
     },
     // Setting

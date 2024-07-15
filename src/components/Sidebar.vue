@@ -1,6 +1,11 @@
 <template>
   <aside class="sidebar">
     <!-- Sidebar content here -->
+
+    <div class="logo">
+      <a href=""><img src="../assets/logo/logo.png" width="100px" alt=""></a>
+    </div>
+
     <ul class="sidebar-menu">
       <li><router-link to="/dashboard" @click.native="closeAllSubmenus">Dashboard</router-link></li>
       <li><router-link to="/products" @click.native="closeAllSubmenus">Product</router-link></li>
@@ -12,16 +17,15 @@
       <li>
         <a href="#" @click.prevent="toggleSubmenu('report')">Report  </a>
         <ul class="sidebar_submenu" :class="{ hidden: !openSubmenus.report }">
-          <li><router-link to="/sales-report" class="dropdown-item" @click.native="closeAllSubmenus">Sales Report</router-link></li>
-          <li><router-link to="/purchase-report" class="dropdown-item" @click.native="closeAllSubmenus">Purchase Report</router-link></li>
-          <li><router-link to="/inventory-report" class="dropdown-item" @click.native="closeAllSubmenus">Inventory Report</router-link></li>
+          <li><router-link to="/sales/report" class="dropdown-item" @click.native="closeAllSubmenus">Sales Report</router-link></li>
+          <li><router-link to="/purchase/report" class="dropdown-item" @click.native="closeAllSubmenus">Purchase Report</router-link></li>
         </ul>
       </li>
       <li>
         <a href="#" @click.prevent="toggleSubmenu('purchase')">Purchase</a>
         <ul class="sidebar_submenu" :class="{ hidden: !openSubmenus.purchase }">
-          <li><router-link to="/add-purchase" class="dropdown-item" @click.native="closeAllSubmenus">Add Purchase</router-link></li>
-          <li><router-link to="/create-purchase" class="dropdown-item" @click.native="closeAllSubmenus">Create Purchase</router-link></li>
+          <li><router-link to="/purchase" class="dropdown-item" @click.native="closeAllSubmenus">Index Purchase</router-link></li>
+          <li><router-link to="/purchase/create" class="dropdown-item" @click.native="closeAllSubmenus">Create Purchase</router-link></li>
         </ul>
       </li>
       <li><router-link to="/profile" @click.native="closeAllSubmenus">Profile</router-link></li>
@@ -31,8 +35,8 @@
 </template>
 
 <script setup>
-import { reactive, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
+import { reactive, onMounted, watch } from 'vue';
+import { useRouter, useRoute } from 'vue-router';
 
 const openSubmenus = reactive({
   report: false,
@@ -55,14 +59,33 @@ const closeAllSubmenus = () => {
 };
 
 const router = useRouter();
+const route = useRoute();
+
+const setActiveSubmenu = () => {
+  const path = route.path;
+  if (path.includes('report')) {
+    openSubmenus.report = true;
+  } else if (path.includes('purchase')) {
+    openSubmenus.purchase = true;
+  } else {
+    closeAllSubmenus();
+  }
+};
 
 onMounted(() => {
+  setActiveSubmenu();
   router.beforeEach((to, from, next) => {
-    closeAllSubmenus();
+    setActiveSubmenu();
     next();
   });
 });
+
+// Watch the route and update submenu state accordingly
+watch(route, () => {
+  setActiveSubmenu();
+});
 </script>
+
 
 <style scoped>
 .hidden {
