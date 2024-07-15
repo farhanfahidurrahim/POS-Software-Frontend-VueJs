@@ -7,7 +7,7 @@
 
 
 
-/*Sidebar CSS Style Start*/
+/* Sidebar CSS Style Start */
 .logo {
     background: #fff;
     padding: 15px;
@@ -87,9 +87,10 @@ ul.sidebar_submenu li a {
 ul.sidebar_submenu.hidden {
     transition: all .3s ease-in-out;
 }
+/* Sidebar CSS Style End */
 
-
-/*Sidebar CSS Style End*/
+/* Navbar CSS Style Start */
+/* Navbar CSS Style Start */
 
 .breadcrumb_right_action {
     display: flex;
