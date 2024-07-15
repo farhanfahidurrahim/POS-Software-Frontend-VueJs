@@ -1,7 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <router-link class="navbar-brand" to="/">POS</router-link>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -40,18 +39,13 @@ watchEffect(() => {
 });
 
 const isLoggedIn = computed(() => {
-  // Check if user is logged in based on presence of token
   return !!localStorage.getItem("authToken");
 });
 
 const logout = () => {
-  // Clear token from local storage
   localStorage.removeItem("authToken");
-  // Clear user data from local storage
   localStorage.removeItem("user");
-  // Clear Axios header
   delete axios.defaults.headers.common["Authorization"];
-  // Redirect to login page
   router.push({name: "Login"});
 };
 </script>
