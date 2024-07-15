@@ -1,0 +1,91 @@
+
+
+
+
+
+
+
+
+
+/*Sidebar CSS Style Start*/
+.sidebar {
+    width: 250px;
+    background-color: #343a40ed;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-menu {
+    list-style-type: none;
+    overflow: hidden;
+    border-right: 1px solid #fff;
+    padding: 0;
+    height: 100vh;
+}
+
+.sidebar-menu li a {
+    text-decoration: none;
+    color: #ffffffb8;
+    display: block;
+    transition: all .3s ease-in-out;
+    padding: 10px;
+}
+
+.sidebar-menu li a:hover {
+    background-color: #000;
+    color: #fff;
+}
+ul.sidebar-menu li.nav-item.dropdown a:focus {
+    color: #fff;
+}
+ul.sidebar-menu li.nav-item.dropdown ul {
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+}
+
+ul.sidebar-menu li.nav-item.dropdown ul li a {
+    color: #000;
+    padding: 8px;
+    transition: all .3s ease-in-out;
+}
+
+ul.sidebar-menu li.nav-item.dropdown ul li a:hover {
+    color: #fff;
+}
+ul.sidebar-menu li ul.sidebar_submenu {
+    padding: 0;
+    transition: all .3s ease-in-out;
+}
+
+ul.sidebar-menu li ul.sidebar_submenu li {
+    list-style: none;
+    background: #fff;
+}
+ul.sidebar_submenu li a:hover {
+    margin-left: 0;
+}
+
+ul.sidebar_submenu li a {
+    color: #000;
+    padding: 5px;
+}
+ul.sidebar_submenu.hidden {
+    transition: all .3s ease-in-out;
+}
+/*Sidebar CSS Style End*/
+
+
+
+
+
+#nprogress .bar {
+    background: green;
+}
+
+#nprogress .peg {
+    box-shadow: 0 0 10px green, 0 0 5px green;
+}

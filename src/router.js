@@ -17,137 +17,129 @@ import Pos from "./views/Order/Pos.vue";
 import SalesReport from "./views/Report/SalesReport.vue";
 import Setting from "./views/Setting.vue";
 
-const routes = [{
-        path: "/",
-        name: "Home",
-        component: Dashboard,
-        meta: { requiresAuth: true }, // Example: Requires authentication
-    },
+const routes = [
     {
         path: "/login",
         name: "Login",
         component: Login,
-        meta: { layout: null }, // No layout for the login page
+        meta: { requiresAuth: false, layout: 'auth' }, // No layout for the login page
+    },
+    {
+        path: "/",
+        name: "Home",
+        component: Dashboard,
+        meta: { requiresAuth: true, layout: 'main' }, // Requires authentication
     },
     {
         path: "/dashboard",
         name: "Dashboard",
         component: Dashboard,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
     // Brand
     {
         path: "/brands",
         name: "BrandIndex",
         component: BrandIndex,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
     {
         path: "/brands/create",
         name: "BrandCreate",
         component: BrandCreate,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
     {
         path: "/brands/:id/edit",
         name: "BrandEdit",
         component: BrandEdit,
         props: true,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
-    //Category
+    // Category
     {
         path: "/categories",
         name: "CategoryIndex",
         component: CategoryIndex,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
-    //Customer
+    // Customer
     {
         path: "/customers",
         name: "CustomerIndex",
         component: CustomerIndex,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
     {
         path: "/customer/create",
         name: "CustomerCreate",
         component: CustomerCreate,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
     {
         path: "/customer/edit",
         name: "CustomerEdit",
         component: CustomerEdit,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
     // Product
     {
         path: "/products",
         name: "ProductIndex",
         component: ProductIndex,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
     {
         path: "/products/create",
         name: "ProductCreate",
         component: ProductCreate,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
     {
         path: "/products/:id/view",
         name: "ProductView",
         component: ProductView,
         props: true,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
     // Profile
     {
         path: "/profile",
         name: "Profile",
         component: Profile,
         props: true,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
     // POS | Order
     {
         path: "/pos",
         name: "Pos",
         component: Pos,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
     {
         path: "/orders",
         name: "OrderIndex",
         component: OrderIndex,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
     // Report
     {
         path: "/sales-report",
         name: "SalesReport",
         component: SalesReport,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
-
     // Setting
     {
         path: "/settings",
         name: "Setting",
         component: Setting,
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, layout: 'main' },
     },
 ];
 
-const BASE_URL =
-    import.meta.env.BASE_URL || "/";
+const BASE_URL = import.meta.env.BASE_URL || "/";
 
 const router = createRouter({
     history: createWebHistory(BASE_URL),
@@ -162,10 +154,9 @@ router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth && !isAuthenticated) {
         next({ name: "Login" });
     } else {
-        // If the route does not have a meta layout defined, set it to 'DashboardLayout'
-        // if (to.meta.layout === undefined) {
-        if (to.meta.layout === undefined && to.name !== "Portfolio") {
-            to.meta.layout = "DashboardLayout";
+        // If the route does not have a meta layout defined, set it to 'main'
+        if (to.meta.layout === undefined) {
+            to.meta.layout = "main";
         }
         next();
     }

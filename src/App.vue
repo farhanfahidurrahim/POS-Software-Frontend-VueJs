@@ -1,35 +1,43 @@
-<script setup>
-import { provide, shallowRef } from "vue";
-import layouts from "./layouts/index";
-import router from "./router";
-const layout = shallowRef("main");
-
-router.afterEach((to) => {
-  layout.value = layouts[to.meta.layout] || "main";
-});
-
-console.log(layout);
-
-provide("app:layout", layout);
-</script>
-
 <template>
-  <component :is="layout">
-    <router-view />
-  </component>
+  <div class="layout">
+    <Navbar v-if="showNavbar" />
+    <div class="layout-content">
+      <Sidebar v-if="showSidebar" />
+      <main class="main-content">
+        <router-view />
+      </main>
+    </div>
+  </div>
 </template>
 
+<script setup>
+import {computed} from 'vue';
+import {useRoute} from 'vue-router';
+import Navbar from "./components/Navbar.vue";
+import Sidebar from "./components/Sidebar.vue";
+
+const route = useRoute();
+
+const showNavbar = computed(() => route.meta.layout === 'main');
+const showSidebar = computed(() => route.meta.layout === 'main');
+</script>
+
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.layout-content {
+  display: flex;
+  flex: 1;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.main-content {
+  margin-left: 250px; /* Adjust for sidebar width */
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
 }
 </style>
