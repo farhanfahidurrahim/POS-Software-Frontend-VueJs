@@ -11,7 +11,7 @@
       >
     </div>
   </div>
-  <div>
+  <div class="card p-3">
     <form @submit.prevent="createBrand">
       <div class="form-group mb-3">
         <label for="name" class="form-label">Name: <span style="color:red">*</span> </label>

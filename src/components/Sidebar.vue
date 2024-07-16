@@ -7,24 +7,24 @@
     </div>
 
     <ul class="sidebar-menu">
-      <li><router-link to="/dashboard" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'chart-line']" /> Dashboard</router-link></li>
-      <li><router-link to="/products" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'bars']" /> Product</router-link></li>
-      <li><router-link to="/categories" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'list']" /> Category</router-link></li>
-      <li><router-link to="/brands" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'list']" /> Brands</router-link></li>
-      <li><router-link to="/customers" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'person-military-pointing']" /> Customers</router-link></li>
-      <li><router-link to="/pos" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'signs-post']" /> POS</router-link></li>
-      <li><router-link to="/orders" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'file-pen']" /> Orders</router-link></li>
+      <li><router-link to="/dashboard" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'chart-line']" /> Dashboard</router-link></li>
+      <li><router-link to="/products" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'bars']" /> Product</router-link></li>
+      <li><router-link to="/categories" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'list']" /> Category</router-link></li>
+      <li><router-link to="/brands" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'list']" /> Brands</router-link></li>
+      <li><router-link to="/customers" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'person-military-pointing']" /> Customers</router-link></li>
+      <li><router-link to="/pos" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'signs-post']" /> POS</router-link></li>
+      <li><router-link to="/orders" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'file-pen']" /> Orders</router-link></li>
       <li>
-        <a href="#" @click.prevent="toggleSubmenu('report')"><font-awesome-icon :icon="['fas', 'bars']" />
-          Report
+        <a href="#" @click.prevent="toggleSubmenu('report')">
+          <span><font-awesome-icon :icon="['fas', 'bars']" /> Report</span>
           <font-awesome-icon
               v-if="openSubmenus.report"
-              :icon="['fas', 'circle-chevron-down']"
+              :icon="['fas', 'chevron-down']"
               class="chevron-icon"
           />
           <font-awesome-icon
               v-else
-              :icon="['fas', 'circle-chevron-left']"
+              :icon="['fas', 'chevron-left']"
               class="chevron-icon"
           />
         </a>
@@ -34,18 +34,34 @@
               <font-awesome-icon :icon="['far', 'circle']" class="custom-icon" /> Sales Report
             </router-link>
           </li>
-          <li><router-link to="/purchase/report" class="dropdown-item" @click.native="closeAllSubmenus">Purchase Report</router-link></li>
+          <li><router-link to="/purchase/report" class="dropdown-item" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['far', 'circle']" class="custom-icon" /> Purchase Report</router-link></li>
         </ul>
       </li>
       <li>
-        <a href="#" @click.prevent="toggleSubmenu('purchase')"><font-awesome-icon :icon="['fas', 'store']" /> Purchase</a>
+        <a href="#" @click.prevent="toggleSubmenu('purchase')">
+          <span>
+            <font-awesome-icon :icon="['fas', 'store']" /> Purchase
+          </span>
+          <font-awesome-icon
+              v-if="openSubmenus.report"
+              :icon="['fas', 'chevron-down']"
+              class="chevron-icon"
+          />
+          <font-awesome-icon
+              v-else
+              :icon="['fas', 'chevron-left']"
+              class="chevron-icon"
+          />
+        </a>
         <ul class="sidebar_submenu" :class="{ hidden: !openSubmenus.purchase }">
-          <li><router-link to="/purchase" class="dropdown-item" @click.native="closeAllSubmenus">Index Purchase</router-link></li>
-          <li><router-link to="/purchase/create" class="dropdown-item" @click.native="closeAllSubmenus">Create Purchase</router-link></li>
+          <li><router-link to="/purchase" class="dropdown-item" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['far', 'circle']" class="custom-icon" />Index Purchase</router-link></li>
+          <li><router-link to="/purchase/create" class="dropdown-item" @click.native="closeAllSubmenus">
+            <font-awesome-icon :icon="['far', 'circle']" class="custom-icon" />Create Purchase
+          </router-link></li>
         </ul>
       </li>
-      <li><router-link to="/profile" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'user']" /> Profile</router-link></li>
-      <li><router-link to="/settings" @click.native="closeAllSubmenus"><font-awesome-icon :icon="['fas', 'gear']" /> Settings</router-link></li>
+      <li><router-link to="/profile" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'user']" /> Profile</router-link></li>
+      <li><router-link to="/settings" @click.native="closeAllSubmenus" class="singleItem"><font-awesome-icon :icon="['fas', 'gear']" /> Settings</router-link></li>
     </ul>
   </aside>
 </template>

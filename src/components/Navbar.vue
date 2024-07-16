@@ -1,26 +1,44 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container">
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
 
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/profile">{{ userData.name }}</router-link>
-          </li>
-          <li class="nav-item" v-if="isLoggedIn">
-            <button @click="logout" class="btn btn-link nav-link">Logout</button>
-          </li>
-          <li class="nav-item" v-else>
-            <router-link class="nav-link" to="/login">Login</router-link>
-          </li>
+  <div>
+    <ul class="adminProfile">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <img src="../assets/no-image.webp" alt="">
+          Md Fahidur Rahim
+        </a>
+        <ul class="dropdown-menu profileDropdown">
+                  <li><a href=""><font-awesome-icon :icon="['fas', 'user']" /> Profile</a></li>
+                  <li><a href=""><font-awesome-icon :icon="['fas', 'user']" /> Change Password</a></li>
+                  <li><a href=""><font-awesome-icon :icon="['fas', 'user']" /> Logout</a></li>
         </ul>
-      </div>
-    </div>
-  </nav>
+      </li>
+    </ul>
+  </div>
+
+<!--  <nav class="navbar navbar-expand-lg navbar-light bg-light">-->
+<!--    <div class="container">-->
+
+<!--      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--      </button>-->
+
+<!--      <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--        <ul class="navbar-nav ms-auto">-->
+<!--          <li class="nav-item">-->
+<!--            <router-link class="nav-link" to="/profile">{{ userData.name }}</router-link>-->
+<!--          </li>-->
+<!--          <li class="nav-item" v-if="isLoggedIn">-->
+<!--            <button @click="logout" class="btn btn-link nav-link">Logout</button>-->
+<!--          </li>-->
+<!--          <li class="nav-item" v-else>-->
+<!--            <router-link class="nav-link" to="/login">Login</router-link>-->
+<!--          </li>-->
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </nav>-->
 </template>
 
 <script setup>
