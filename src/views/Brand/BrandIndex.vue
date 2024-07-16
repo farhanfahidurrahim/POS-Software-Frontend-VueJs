@@ -4,7 +4,7 @@
         class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-2"
     >
       <div>
-        <h4 class="m-0">Brand List</h4>
+        <h4 class="m-0">Brand Page</h4>
       </div>
 
       <div class="breadcrumb_right_action">
@@ -27,79 +27,109 @@
         </div>
       </div>
     </div>
-    
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-8">
-      <div class="card p-2">
-        <table class="table">
-          <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Category Name</th>
-            <th scope="col">Created By</th>
-            <th scope="col">Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(brand, index) in filteredBrands" :key="brand.id">
-            <th scope="row">{{ index + 1 }}</th>
-            <td>{{ brand.name }}</td>
-            <td>{{ brand.description }}</td>
-            <td>{{ brand.category ? brand.category.name : "--" }}</td>
-            <td>{{ brand.created_by }}</td>
-            <td>
-              <router-link
-                  :to="{ name: 'BrandEdit', params: { id: brand.id } }"
-                  class="btn btn-sm btn-info mx-2"
-              >
-                Edit
-              </router-link>
-              <button
-                  @click="deleteBrand(brand.id)"
-                  class="btn btn-sm btn-danger"
-              >
-                Delete
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="card p-2">
+            <h4>Brand List</h4>
+            <table class="table">
+              <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Description</th>
+                <th scope="col">Category Name</th>
+                <th scope="col">Created By</th>
+                <th scope="col">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr v-for="(brand, index) in filteredBrands" :key="brand.id">
+                <th scope="row">{{ index + 1 }}</th>
+                <td>{{ brand.name }}</td>
+                <td>{{ brand.description }}</td>
+                <td>{{ brand.category ? brand.category.name : "--" }}</td>
+                <td>{{ brand.created_by }}</td>
+                <td>
+                  <router-link
+                      :to="{ name: 'BrandEdit', params: { id: brand.id } }"
+                      class="btn btn-sm btn-info mx-2"
+                  >
+                    Edit
+                  </router-link>
+                  <button
+                      @click="deleteBrand(brand.id)"
+                      class="btn btn-sm btn-danger"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card p-3">
+            <h4>Brand Create</h4>
+            <form>
+              <div class="form-group mb-3">
+                <label for="name" class="form-label">Name: <span style="color:red">*</span> </label>
+                <input
+                    type="text"
+                    id="name"
+                    class="form-control"
+                />
+              </div>
+              <div class="form-group mb-3">
+                <label for="category" class="form-label">Category: <span style="color: red;">*</span></label>
+                <select id="category" class="form-control">
+                  <option>
+                  </option>
+                </select>
+              </div>
+              <div class="form-group mb-3">
+                <label for="description" class="form-label">Description:</label>
+                <textarea
+                    id="description"
+                    class="form-control"
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="col-md-4"></div>
-  </div>
-</div>
 
     <!-- No search data message -->
     <div v-if="filteredBrands.length === 0 && !loading" class="alert alert-danger">
       No search data found.
     </div>
-    
+
     <!-- Pagination Links -->
     <nav class="d-flex justify-content-end" v-if="paginationLinks && paginationLinks.links.length > 0">
       <ul class="pagination">
         <li class="page-item" :class="{ 'disabled': !paginationLinks.prev }">
           <button
-            class="page-link"
-            @click="paginationLinks.prev && fetchBrands(paginationLinks.prev)"
-            :disabled="!paginationLinks.prev"
+              class="page-link"
+              @click="paginationLinks.prev && fetchBrands(paginationLinks.prev)"
+              :disabled="!paginationLinks.prev"
           >
             Previous
           </button>
         </li>
         <li
-          class="page-item"
-          v-for="(link, index) in paginationLinks.links"
-          :key="index"
-          :class="{ 'active': link.active }"
+            class="page-item"
+            v-for="(link, index) in paginationLinks.links"
+            :key="index"
+            :class="{ 'active': link.active }"
         >
           <button
-            class="page-link"
-            @click="fetchBrands(link.url)"
-            v-if="link.url"
+              class="page-link"
+              @click="fetchBrands(link.url)"
+              v-if="link.url"
           >
             {{ link.label }}
           </button>
@@ -107,9 +137,9 @@
         </li>
         <li class="page-item" :class="{ 'disabled': !paginationLinks.next }">
           <button
-            class="page-link"
-            @click="paginationLinks.next && fetchBrands(paginationLinks.next)"
-            :disabled="!paginationLinks.next"
+              class="page-link"
+              @click="paginationLinks.next && fetchBrands(paginationLinks.next)"
+              :disabled="!paginationLinks.next"
           >
             Next
           </button>
@@ -127,9 +157,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import {ref, onMounted, computed} from "vue";
 import axios from "../../http.js";
-import { useToast } from 'vue-toastification';
+import {useToast} from 'vue-toastification';
 
 const toast = useToast();
 const brands = ref([]);
