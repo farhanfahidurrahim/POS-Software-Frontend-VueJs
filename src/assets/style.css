@@ -63,7 +63,7 @@ ul.sidebar-menu li {
     justify-content: start;
 }
 ul.sidebar-menu li ul.sidebar_submenu li a {
-    padding-left: 35px;
+    padding-left: 45px;
     justify-content: start;
 }
 .sidebar-menu li a:hover {
@@ -135,8 +135,11 @@ ul.sidebar_submenu.hidden {
     padding-right: 40px;
     align-items: center;
     gap: 10px;
-    justify-content: end;
+    justify-content: space-between;
     border-bottom: 1px solid #ddd;
+}
+.bar-icon {
+    cursor: pointer;
 }
 ul.dropdown-menu.profileDropdown.show {
     margin-top: 10px !important;

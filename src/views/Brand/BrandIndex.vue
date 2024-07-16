@@ -1,42 +1,32 @@
 <template>
   <div>
     <div
-        class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-2"
+        class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-4"
     >
       <div>
         <h4 class="m-0">Brand Page</h4>
       </div>
-
-      <div class="breadcrumb_right_action">
-        <div>
-          <input
-              type="text"
-              v-model="searchQuery"
-              class="form-control"
-              placeholder="Search by name..."
-          />
-        </div>
-
-        <div>
-          <router-link
-              :to="{ name: 'BrandCreate' }"
-              class="btn btn-sm btn-success"
-          >
-            Add Brand
-          </router-link>
-        </div>
-      </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid p-0 m-0 rounded">
       <div class="row">
-        <div class="col-md-8">
-          <div class="card p-2">
-            <h4>Brand List</h4>
-            <table class="table">
+        <div class="col-md-9">
+          <div class="shadow-sm p-2 pb-0">
+            <div class="d-flex align-items-center justify-content-between pb-3">
+              <h4>Brand List</h4>
+              <div>
+                <input
+                    type="text"
+                    v-model="searchQuery"
+                    class="form-control"
+                    placeholder="Search by name..."
+                />
+              </div>
+            </div>
+            <table class="table mb-0">
               <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col">SL</th>
                 <th scope="col">Name</th>
                 <th scope="col">Description</th>
                 <th scope="col">Category Name</th>
@@ -69,9 +59,59 @@
               </tbody>
             </table>
           </div>
+          <!-- No search data message -->
+          <div v-if="filteredBrands.length === 0 && !loading" class="alert alert-danger">
+            No search data found.
+          </div>
+
+          <!-- Pagination Links -->
+          <nav class="d-flex justify-content-end" v-if="paginationLinks && paginationLinks.links.length > 0">
+            <ul class="pagination">
+              <li class="page-item" :class="{ 'disabled': !paginationLinks.prev }">
+                <button
+                    class="page-link"
+                    @click="paginationLinks.prev && fetchBrands(paginationLinks.prev)"
+                    :disabled="!paginationLinks.prev"
+                >
+                  Previous
+                </button>
+              </li>
+              <li
+                  class="page-item"
+                  v-for="(link, index) in paginationLinks.links"
+                  :key="index"
+                  :class="{ 'active': link.active }"
+              >
+                <button
+                    class="page-link"
+                    @click="fetchBrands(link.url)"
+                    v-if="link.url"
+                >
+                  {{ link.label }}
+                </button>
+                <span v-else class="page-link">{{ link.label }}</span>
+              </li>
+              <li class="page-item" :class="{ 'disabled': !paginationLinks.next }">
+                <button
+                    class="page-link"
+                    @click="paginationLinks.next && fetchBrands(paginationLinks.next)"
+                    :disabled="!paginationLinks.next"
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </nav>
+
+          <!-- Loading indicator -->
+          <div v-if="loading" class="text-center">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
         </div>
-        <div class="col-md-4">
-          <div class="card p-3">
+        <div class="col-md-3 ">
+          <div class="p-3 shadow-sm p-2">
             <h4>Brand Create</h4>
             <form>
               <div class="form-group mb-3">
@@ -84,8 +124,9 @@
               </div>
               <div class="form-group mb-3">
                 <label for="category" class="form-label">Category: <span style="color: red;">*</span></label>
-                <select id="category" class="form-control">
-                  <option>
+                <select id="category" class="form-select ">
+                  <option selected disabled>
+                    Select
                   </option>
                 </select>
               </div>
@@ -96,61 +137,10 @@
                     class="form-control"
                 ></textarea>
               </div>
-              <button type="submit" class="btn btn-primary">Submit</button>
+              <div class="text-end"><button type="submit" class="btn btn-primary">Submit</button></div>
             </form>
           </div>
         </div>
-      </div>
-    </div>
-
-    <!-- No search data message -->
-    <div v-if="filteredBrands.length === 0 && !loading" class="alert alert-danger">
-      No search data found.
-    </div>
-
-    <!-- Pagination Links -->
-    <nav class="d-flex justify-content-end" v-if="paginationLinks && paginationLinks.links.length > 0">
-      <ul class="pagination">
-        <li class="page-item" :class="{ 'disabled': !paginationLinks.prev }">
-          <button
-              class="page-link"
-              @click="paginationLinks.prev && fetchBrands(paginationLinks.prev)"
-              :disabled="!paginationLinks.prev"
-          >
-            Previous
-          </button>
-        </li>
-        <li
-            class="page-item"
-            v-for="(link, index) in paginationLinks.links"
-            :key="index"
-            :class="{ 'active': link.active }"
-        >
-          <button
-              class="page-link"
-              @click="fetchBrands(link.url)"
-              v-if="link.url"
-          >
-            {{ link.label }}
-          </button>
-          <span v-else class="page-link">{{ link.label }}</span>
-        </li>
-        <li class="page-item" :class="{ 'disabled': !paginationLinks.next }">
-          <button
-              class="page-link"
-              @click="paginationLinks.next && fetchBrands(paginationLinks.next)"
-              :disabled="!paginationLinks.next"
-          >
-            Next
-          </button>
-        </li>
-      </ul>
-    </nav>
-
-    <!-- Loading indicator -->
-    <div v-if="loading" class="text-center">
-      <div class="spinner-border text-primary" role="status">
-        <span class="visually-hidden">Loading...</span>
       </div>
     </div>
   </div>
