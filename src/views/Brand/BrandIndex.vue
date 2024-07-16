@@ -1,62 +1,77 @@
 <template>
   <div>
     <div
-      class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-4"
+        class="d-flex align-items-center justify-content-between shadow-sm p-3 mb-2"
     >
       <div>
-        <h2 class="m-0">Brand List</h2>
+        <h4 class="m-0">Brand List</h4>
       </div>
-      <div>
-        <router-link :to="{ name: 'BrandCreate' }" class="btn btn-sm btn-success">
-          Add Brand
-        </router-link>
+
+      <div class="breadcrumb_right_action">
+        <div>
+          <input
+              type="text"
+              v-model="searchQuery"
+              class="form-control"
+              placeholder="Search by name..."
+          />
+        </div>
+
+        <div>
+          <router-link
+              :to="{ name: 'BrandCreate' }"
+              class="btn btn-sm btn-success"
+          >
+            Add Brand
+          </router-link>
+        </div>
       </div>
     </div>
     
-    <div class="mb-3">
-      <input
-        type="text"
-        v-model="searchQuery"
-        class="form-control"
-        placeholder="Search by name..."
-      />
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card p-2">
+        <table class="table">
+          <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Category Name</th>
+            <th scope="col">Created By</th>
+            <th scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(brand, index) in filteredBrands" :key="brand.id">
+            <th scope="row">{{ index + 1 }}</th>
+            <td>{{ brand.name }}</td>
+            <td>{{ brand.description }}</td>
+            <td>{{ brand.category ? brand.category.name : "--" }}</td>
+            <td>{{ brand.created_by }}</td>
+            <td>
+              <router-link
+                  :to="{ name: 'BrandEdit', params: { id: brand.id } }"
+                  class="btn btn-sm btn-info mx-2"
+              >
+                Edit
+              </router-link>
+              <button
+                  @click="deleteBrand(brand.id)"
+                  class="btn btn-sm btn-danger"
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Name</th>
-          <th scope="col">Description</th>
-          <th scope="col">Category Name</th>
-          <th scope="col">Created By</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(brand, index) in filteredBrands" :key="brand.id">
-          <th scope="row">{{ index + 1 }}</th>
-          <td>{{ brand.name }}</td>
-          <td>{{ brand.description }}</td>
-          <td>{{ brand.category ? brand.category.name : "--" }}</td>
-          <td>{{ brand.created_by }}</td>
-          <td>
-            <router-link
-              :to="{ name: 'BrandEdit', params: { id: brand.id } }"
-              class="btn btn-sm btn-info mx-2"
-            >
-              Edit
-            </router-link>
-            <button
-              @click="deleteBrand(brand.id)"
-              class="btn btn-sm btn-danger"
-            >
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="col-md-4"></div>
+  </div>
+</div>
 
     <!-- No search data message -->
     <div v-if="filteredBrands.length === 0 && !loading" class="alert alert-danger">
