@@ -9,12 +9,12 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
           <img src="../assets/no-image.webp" alt="">
-          Md Fahidur Rahim
+          {{ userData.name }}
 
           <ul class="dropdown-menu profileDropdown">
             <li><a href=""><font-awesome-icon :icon="['fas', 'user']" /> Profile</a></li>
             <li><a href=""><font-awesome-icon :icon="['fas', 'user']" /> Change Password</a></li>
-            <li><a href=""><font-awesome-icon :icon="['fas', 'user']" /> Logout</a></li>
+            <button @click="logout"><font-awesome-icon :icon="['fas', 'user']"/>Logout</button>
           </ul>
         </a>
       </li>

@@ -113,21 +113,20 @@
         <div class="col-md-3 ">
           <div class="p-3 shadow-sm p-2">
             <h4>Brand Create</h4>
-            <form>
+            <form @submit.prevent="createBrand">
               <div class="form-group mb-3">
                 <label for="name" class="form-label">Name: <span style="color:red">*</span> </label>
                 <input
                     type="text"
                     id="name"
                     class="form-control"
+                    v-model="brandForm.name"
                 />
               </div>
               <div class="form-group mb-3">
                 <label for="category" class="form-label">Category: <span style="color: red;">*</span></label>
-                <select id="category" class="form-select ">
-                  <option selected disabled>
-                    Select
-                  </option>
+                <select id="category" v-model="brandForm.category_id" class="form-select ">
+                  <option v-for="category in categories" :key="category.id" :value="category.id">{{ category.name }}</option>
                 </select>
               </div>
               <div class="form-group mb-3">
@@ -135,6 +134,7 @@
                 <textarea
                     id="description"
                     class="form-control"
+                    v-model="brandForm.description"
                 ></textarea>
               </div>
               <div class="text-end"><button type="submit" class="btn btn-primary">Submit</button></div>
@@ -215,6 +215,58 @@ const filteredBrands = computed(() => {
 // Fetch initial brands on component mount
 onMounted(() => {
   fetchBrands();
+});
+
+/*
+|--------------------------------------------------------------------------
+| Brand Create
+|--------------------------------------------------------------------------
+*/
+const categories = ref([]);
+const errors = ref({});
+const brandForm = ref({
+  name: "",
+  category_id: "",
+  description: "",
+});
+
+const fetchCategories = async () => {
+  try {
+    const response = await axios.get("/api/v1/categories");
+    categories.value = response.data.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+  }
+};
+
+const createBrand = async () => {
+  try {
+    const response = await axios.post("/api/v1/brands", {
+      name: brandForm.value.name,
+      category_id: brandForm.value.category_id,
+      description: brandForm.value.description,
+    });
+    console.log("Response:", response.data);
+    toast.success('Brand Created Successfully!');
+    // Reset the form
+    brandForm.value = {
+      name: "",
+      category_id: "",
+      description: "",
+    };
+
+    // Fetch the updated brand list
+    fetchBrands();
+  } catch (error) {
+    if (error.response && error.response.data.errors) {
+      errors.value = error.response.data.errors;
+    } else {
+      console.error("Error:", error);
+    }
+  }
+};
+onMounted(() => {
+  fetchCategories();
 });
 </script>
 
